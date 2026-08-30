@@ -12,6 +12,7 @@ A desktop computer power supply is
 built into the enclosure and provides power for the box.
 
 ![Numbered front-panel output connections and indicator lights](images/connections.jpg)
+The top row are postive numbered connections the bottom row are grounds.
 
 ![DMX input with red power indicator and green DMX activity light](images/DMX%20input%20red%20light%20pwer%20the%20green%20light%20blins%20when%20dmx%20is%20present.jpg)
 
