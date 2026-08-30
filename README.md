@@ -8,6 +8,8 @@ This is a theatrical Squib Box designed for the Heartstoppers Haunted house entr
 
 ![Internal relay, Pico, and MAX485 wiring](images/squib-box-inside.jpg)
 
+![Numbered front-panel output connections and indicator lights](images/connections.jpg)
+
 The controller uses:
 
 - An original Raspberry Pi Pico (RP2040)
