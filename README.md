@@ -6,6 +6,54 @@ This is a theatrical Squib Box designed for the Heartstoppers Haunted house entr
 
 ![Assembled Squib Box DMX 2 hardware](images/squib-box.jpg)
 
+![Internal relay, Pico, and MAX485 wiring](images/squib-box-inside.jpg)
+
+The controller uses:
+
+- An original Raspberry Pi Pico (RP2040)
+- A MAX485-compatible RS-485 receiver module
+- A standard DMX512 controller or lighting desk
+- Relay modules or suitable driver circuitry for the external 12 V loads
+
+The Pico GPIO pins must not drive 12 V relay coils directly. Use relay modules
+or transistor/MOSFET drivers with flyback protection, and connect grounds as
+required by the chosen driver circuit.
+
+### MAX485 Receive-Only Wiring
+
+This project only receives DMX. The MAX485 transmitter is disabled and its
+driver input is unused.
+
+| MAX485 | Raspberry Pi Pico | Purpose |
+| --- | --- | --- |
+| VCC | VBUS, physical pin 40 | 5 V module power from USB |
+| GND | GND | Common ground |
+| RE | GND | Keep the receiver enabled |
+| DE | GND | Keep the transmitter disabled |
+| DI | Not connected | Transmit data is not used |
+| RO | GPIO 5, physical pin 7, through divider below | DMX receive data |
+| A/B | DMX data pair, XLR pins 3/2 | Differential DMX input |
+
+> **Important:** Confirm the voltage requirements and pin labels for your exact
+> MAX485-compatible module. A module powered from 5 V can produce a 5 V `RO`
+> signal, which must not be connected directly to a Pico GPIO.
+
+For a 5 V `RO` signal, use a resistor divider:
+
+1. Connect a 1 kOhm resistor between MAX485 `RO` and Pico `GPIO 5` (physical pin 7).
+2. Connect a 2 kOhm resistor between Pico `GPIO 5` and `GND`.
+
+This reduces the receiver output to approximately 3.3 V for the Pico input.
+If DMX activity is not detected, verify the common ground and swap the A/B data
+wires; A/B labels are not consistent across all RS-485 modules.
+
+![MAX485 receive-only wiring reference](images/max485-receive-only-wiring.png)
+
+> **Diagram correction for this project:** The legacy diagram labels the data
+> connection as Pico physical pin 12 (`GPIO 9`). Do not use that signal pin with
+> this firmware. Connect the divided `RO` signal to physical pin 7 (`GPIO 5`),
+> which is the DMX input compiled into this project.
+
 Pico SDK C++ rewrite of the Squib-Box MicroPython controller for the original
 Raspberry Pi Pico (RP2040). DMX framing is detected by a PIO state machine and
 received with DMA, so channel alignment does not depend on UART polling timing.
