@@ -2,6 +2,10 @@
 
 This is a theatrical Squib Box designed for the Heartstoppers Haunted house entry show in Racho Cordova California. It uses 12volt contact closures to open pneumatic valves that would be loaded with flour to imitate a  built hitting a wall. It has been adaped in the past for servo contols and other effwcts.
 
+## Hardware
+
+![Assembled Squib Box DMX 2 hardware](images/squib-box.jpg)
+
 Pico SDK C++ rewrite of the Squib-Box MicroPython controller for the original
 Raspberry Pi Pico (RP2040). DMX framing is detected by a PIO state machine and
 received with DMA, so channel alignment does not depend on UART polling timing.
