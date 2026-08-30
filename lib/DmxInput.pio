@@ -1,0 +1,46 @@
+; Author: Jostein Lower, github: jostlowe
+; SPDX-License-Identifier: BSD-3-Clause
+; PIO program for receiving DMX at a 2 MHz state-machine clock.
+
+.program DmxInput
+restart:
+break_reset:
+    set x, 18
+break_loop:
+    jmp pin break_reset
+    jmp x-- break_loop [4]
+    wait 1 pin 0
+    wait 0 pin 0
+    jmp start_found [2]
+
+start_of_byte:
+.wrap_target
+    set y, 5
+start_bit_outer_loop:
+    set x, 15
+start_bit_loop:
+    jmp pin loop1
+    jmp start_found [1]
+loop1:
+    jmp x-- start_bit_loop
+    jmp y-- start_bit_outer_loop
+    jmp end_of_frame
+start_found:
+    set x, 7 [7]
+bitloop:
+    in pins, 1
+    jmp x-- bitloop [6]
+    jmp pin stop_good_1 [6]
+    jmp bad_stop
+stop_good_1:
+    in NULL, 24
+    jmp pin stop_good_2
+    jmp bad_stop
+stop_good_2:
+    push
+.wrap
+end_of_frame:
+    irq 1
+bad_stop:
+    wait 1 pin 0
+    jmp restart
