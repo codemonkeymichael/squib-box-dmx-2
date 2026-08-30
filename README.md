@@ -1,6 +1,6 @@
 # Squib Box DMX 2
 
-This is a theatrical Squib Box designed for the Heartstoppers Haunted house entry show in Racho Cordova California. It uses 12volt contact closures to open pneumatic valves that would be loaded with flour to imitate a  built hitting a wall. It has been adaped in the past for servo contols and other effwcts.
+This is a theatrical Squib Box designed for the Heartstoppers Haunted house entry show in Racho Cordova California. It uses 12volt relays to open pneumatic valves that would be loaded with flour to imitate a  built hitting a wall. It has been adaped in the past for servo contols and other effwcts.
 
 ## Hardware
 
